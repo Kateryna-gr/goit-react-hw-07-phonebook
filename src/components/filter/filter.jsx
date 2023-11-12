@@ -1,4 +1,17 @@
-export const Filter = ({ onFilteredName, onFilteredNumber }) => {
+import { useDispatch } from 'react-redux';
+import { changeFilterName, changeFilterNumber } from 'redux/filterSlice';
+
+export const Filter = () => {
+  const dispatch = useDispatch();
+
+  const onFilteredName = value => {
+    dispatch(changeFilterName(value));
+  };
+
+  const onFilteredNumber = value => {
+    dispatch(changeFilterNumber(value));
+  };
+
   return (
     <div>
       <p>Find contacts by name</p>

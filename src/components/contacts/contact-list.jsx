@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Contact } from './contact';
 
-export const ContactList = ({ onDelete }) => {
+export const ContactList = () => {
   const contacts = useSelector(state => state.contacts);
   const filterName = useSelector(state => state.filter.name);
   const filterNumber = useSelector(state => state.filter.number);
@@ -21,12 +21,7 @@ export const ContactList = ({ onDelete }) => {
     <ul>
       {filteredList.map(contact => (
         <li key={contact.id}>
-          <Contact
-            name={contact.name}
-            phone={contact.number}
-            id={contact.id}
-            onDelete={onDelete}
-          />
+          <Contact name={contact.name} phone={contact.number} id={contact.id} />
         </li>
       ))}
     </ul>

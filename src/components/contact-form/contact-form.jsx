@@ -1,19 +1,34 @@
 import { ErrorMessage, Field, Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, StyledForm } from 'components/contact-form/form.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
 const ContactSchema = Yup.object().shape({
   name: Yup.string('Invalid name').required('Enter name'),
   number: Yup.number('Invalid phone').required('Enter phone'),
 });
 
-export const ContactForm = ({ onAdd }) => {
+export const ContactForm = () => {
+  const contacts = useSelector(state => state.contacts);
+  const dispatch = useDispatch();
+
+  const handleAddContact = values => {
+    let check = contacts.find(contact => contact.name === values.name);
+    if (check) {
+      alert(`${values.name} is already in contacts`);
+      return;
+    }
+
+    dispatch(addContact(values.name, values.number));
+  };
+
   return (
     <Formik
       initialValues={{ name: '', number: '' }}
       validationSchema={ContactSchema}
       onSubmit={(values, actions) => {
-        onAdd(values);
+        handleAddContact(values);
         actions.resetForm();
       }}
     >
