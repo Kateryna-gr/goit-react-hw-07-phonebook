@@ -8,19 +8,14 @@ export const selectError = state => state.contacts.error;
 
 export const selectFilterName = state => state.filter.name;
 
-export const selectFilterNumber = state => state.filter.number;
-
 export const selectCurrentContacts = createSelector(
-  [selectContacts, selectFilterName, selectFilterNumber],
-  (contacts, filterName, filterNumber) => {
-    if (filterName) {
+  [selectContacts, selectFilterName],
+  (contacts, filterName) => {
+    if (!filterName) return contacts;
+    else {
       return contacts.filter(contact =>
         contact.name.toLowerCase().includes(filterName.toLowerCase())
       );
     }
-    if (filterNumber) {
-      return contacts.filter(contact => contact.number.includes(filterNumber));
-    }
-    return contacts;
   }
 );

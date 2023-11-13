@@ -21,7 +21,7 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addContact(values.name, values.number));
+    dispatch(addContact([values.name, values.number]));
   };
 
   return (

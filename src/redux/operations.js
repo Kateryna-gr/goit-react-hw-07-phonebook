@@ -14,9 +14,12 @@ export const fetchContacts = createAsyncThunk('contacts/fetchAll', async () => {
 
 export const addContact = createAsyncThunk(
   'contacts/addContact',
-  async (name, number) => {
+  async ([name, number]) => {
     try {
-      const response = await axios.post('/contacts', { name, number });
+      const response = await axios.post('/contacts', {
+        name: name,
+        phone: number,
+      });
       return response.data;
     } catch (error) {
       return error;
@@ -28,7 +31,7 @@ export const deleteContact = createAsyncThunk(
   'contacts/deleteContact',
   async contactId => {
     try {
-      const response = await axios.delete('/contacts', { contactId });
+      const response = await axios.delete(`/contacts/${contactId}`);
       return response.data;
     } catch (error) {
       return error;

@@ -20,20 +20,22 @@ export const ContactList = () => {
 
   return (
     <div>
-      {isLoading && <h4>Loading...</h4>}
-      {error && <h4>Error...</h4>}
-      {currentContacts && (
+      {isLoading && <h5>Loading...</h5>}
+      {error && <h5>Error...</h5>}
+      {currentContacts.length > 0 ? (
         <ul>
           {currentContacts.map(contact => (
             <li key={contact.id}>
               <Contact
                 name={contact.name}
-                phone={contact.number}
+                phone={contact.phone}
                 id={contact.id}
               />
             </li>
           ))}
         </ul>
+      ) : (
+        <h5>No contacts</h5>
       )}
     </div>
   );
